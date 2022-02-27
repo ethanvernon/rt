@@ -1,9 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./components/Home.tsx";
-import About from "./components/About.tsx";
-import Contact from "./components/Contact.tsx";
-import Message from "./components/Message.tsx";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Message from "./components/Message";
+import { IMessages } from './interfaces/IMessages'
+import IMessage from './interfaces/IMessage'
 import {
   Button,
   FormControl,
@@ -11,19 +13,19 @@ import {
   Input,
   getAccordionDetailsUtilityClass,
 } from "@mui/material";
-import firebase from "./firebase.tsx";
+import firebase from "./firebase";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<IMessages>([]);
   const [username, setUsername] = useState("");
 
   const query = firebase.firestore().collection("messages");
 
   useEffect(() => {
-    query.onSnapshot((snapshot) => {
+    query.onSnapshot((snapshot: any) => {
       setMessages(
-        snapshot.docs.map((doc) => {
+        snapshot.docs.map((doc: any) => {
           let temp = doc.data();
           temp.id = doc.id;
           return temp;
@@ -36,11 +38,11 @@ function App() {
     // setUsername(prompt("Please enter your name"));
   }, []);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-    setMessages([...messages, { username, text: input }]);
-    setInput("");
-  };
+  // const sendMessage = (event: any) => {
+  //   event.preventDefault();
+  //   setMessages([...messages, { username, text: input }]);
+  //   setInput("");
+  // };
 
   return (
     <div className="App">
@@ -51,22 +53,23 @@ function App() {
           <Input
             value={input}
             onChange={(event) => setInput(event.target.value)}
-          />{" "}
-          <Button
+          />
+          {/* <Button
             disabled={!input}
             variant="outlined"
             type="submit"
             onClick={sendMessage}
-          >
-            Send Message
-          </Button>
+          > */}
+            {/* Send Message
+          </Button> */}
         </FormControl>
       </form>
-      {messages.map((message) => (
+      {messages.map((message: any) => (
         <Message
           key={message.id}
+          id={message.id}
           username={message.username}
-          text={message.message}
+          message={message.message}
         />
       ))}
 
