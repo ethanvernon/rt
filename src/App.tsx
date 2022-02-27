@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Message from "./components/Message";
+import Home from "./components/Home.tsx";
+import About from "./components/About.tsx";
+import Contact from "./components/Contact.tsx";
+import Message from "./components/Message.tsx";
 import {
   Button,
   FormControl,
@@ -11,7 +11,7 @@ import {
   Input,
   getAccordionDetailsUtilityClass,
 } from "@mui/material";
-import firebase from "./firebase";
+import firebase from "./firebase.tsx";
 
 function App() {
   const [input, setInput] = useState("");
