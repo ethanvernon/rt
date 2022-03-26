@@ -1,18 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Message from "./components/Message";
 import { IMessages } from "./interfaces/IMessages";
-import IMessage from "./interfaces/IMessage";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  Input,
-  getAccordionDetailsUtilityClass,
-} from "@mui/material";
+
 import firebase from "./firebase";
 import {
   getAuth,
@@ -53,11 +42,23 @@ function App() {
 
   return (
     <div className="App">
+      <nav>
+        <ul>
+          <li>
+            <Link to="/login">login</Link>
+          </li>
+          <li>
+            <Link to="/register">register</Link>
+          </li>
+          <li>
+            <Link to="/test">test</Link>
+          </li>
+        </ul>
+      </nav>
+
       <Routes>
         <Route path="login" element={<BasicForm title="login" />} />
         <Route path="register" element={<BasicForm title="register" />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
         <Route path="test" element={<Test />} />
       </Routes>
     </div>
