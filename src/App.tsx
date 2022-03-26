@@ -4,8 +4,8 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Message from "./components/Message";
-import { IMessages } from './interfaces/IMessages'
-import IMessage from './interfaces/IMessage'
+import { IMessages } from "./interfaces/IMessages";
+import IMessage from "./interfaces/IMessage";
 import {
   Button,
   FormControl,
@@ -14,6 +14,13 @@ import {
   getAccordionDetailsUtilityClass,
 } from "@mui/material";
 import firebase from "./firebase";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import BasicForm from "./components/BasicForm";
+import Test from "./components/Test";
 
 function App() {
   const [input, setInput] = useState("");
@@ -46,37 +53,12 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Welcome {username}</h2>
-      <form>
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
-          <Input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-          />
-          {/* <Button
-            disabled={!input}
-            variant="outlined"
-            type="submit"
-            onClick={sendMessage}
-          > */}
-            {/* Send Message
-          </Button> */}
-        </FormControl>
-      </form>
-      {messages.map((message: any) => (
-        <Message
-          key={message.id}
-          id={message.id}
-          username={message.username}
-          message={message.message}
-        />
-      ))}
-
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="login" element={<BasicForm title="login" />} />
+        <Route path="register" element={<BasicForm title="register" />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="test" element={<Test />} />
       </Routes>
     </div>
   );
