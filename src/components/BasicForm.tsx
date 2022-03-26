@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface BasicFormProps {
   title: string;
@@ -17,13 +18,23 @@ export const BasicForm = ({ title }: BasicFormProps) => {
   const [password, setPassword] = useState("");
 
   const authentication = getAuth();
+  const navigate = useNavigate();
 
   const handleAction = () => {
-    if (title === "register") {
+    if (title === "login") {
+      signInWithEmailAndPassword(authentication, email, password).then(
+        (response) => {
+          navigate("/test");
+          sessionStorage.setItem("Auth Token", response.user.refreshToken);
+        }
+      );
+    } else if (title === "register") {
       if (email.length > 0 && password.length > 0)
         createUserWithEmailAndPassword(authentication, email, password).then(
           (response) => {
-            console.log(response);
+            console.log("response: ", response);
+            sessionStorage.setItem("Auth Token", response.user.refreshToken);
+            navigate("/test");
           }
         );
     }

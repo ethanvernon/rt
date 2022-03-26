@@ -3,6 +3,7 @@ import Message from "../components/Message";
 import { IMessages } from "../interfaces/IMessages";
 import { FormControl, InputLabel, Input } from "@mui/material";
 import firebase from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 function Test() {
   const [input, setInput] = useState("");
@@ -10,6 +11,20 @@ function Test() {
   const [username, setUsername] = useState("");
 
   const query = firebase.firestore().collection("messages");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (authToken) {
+      navigate("/test");
+    }
+
+    if (!authToken) {
+      navigate("/login");
+    }
+  }, []);
 
   useEffect(() => {
     query.onSnapshot((snapshot: any) => {

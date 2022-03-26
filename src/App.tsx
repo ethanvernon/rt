@@ -1,17 +1,18 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { IMessages } from "./interfaces/IMessages";
-
-import firebase from "./firebase";
-
 import BasicForm from "./components/BasicForm";
 import Test from "./components/Test";
 
 function App() {
   const [input, setInput] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // setUsername(prompt("Please enter your name"));
+    let authToken = sessionStorage.getItem("Auth Token");
+
+    if (authToken) {
+      navigate("/test");
+    }
   }, []);
 
   return (
@@ -24,9 +25,9 @@ function App() {
           <li>
             <Link to="/register">register</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/test">test</Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
