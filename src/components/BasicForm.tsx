@@ -1,11 +1,17 @@
 import * as React from "react";
 import { TextField, Button, Box } from "@mui/material";
 
-function BasicForm(props: any) {
+interface BasicFormProps {
+  title: string;
+}
+
+// React FN component
+export const BasicForm = ({ title }: BasicFormProps) => {
+  // function BasicForm(props: any) {
   return (
     <div>
       <div className="heading-container">
-        <h3>{props.title} form</h3>
+        <h3>{title} form</h3>
       </div>
 
       <Box component="form" noValidate autoComplete="off">
@@ -17,9 +23,9 @@ function BasicForm(props: any) {
         />
       </Box>
 
-      <Button variant="outlined">{props.title}</Button>
+      <Button variant="outlined">{title}</Button>
     </div>
   );
-}
+};
 
 export default BasicForm;
